@@ -1,6 +1,6 @@
 """
-@author: <Your name>
-date: <today's date>
+@author: Kemoy Campbell
+date: 11/03/2023
 Project code name: HandBattle
 Purpose:
     A program that play rock, paper, scissors
@@ -54,15 +54,91 @@ def get_computer_choice():
 
 #STUDENT CODE HERE
 #STUDENT FUNCTIONS HERE
+def determine_winner(player_choice, computer_choice):
+    player = "Player Wins"
+    winner = "Computer wins!"
+    if player_choice == computer_choice:
+        winner = "It's a tie!"
+    elif player_choice == "rock" and computer_choice == "scissor":
+        winner = player
+    elif player_choice == "paper" and computer_choice == "rock":
+        winner = player
+    elif player_choice == "scissor" and computer_choice == "paper":
+        winner = player
+    
+    return winner
+
+def quit():
+    while True:
+        choice = input("Play again? (yes/quit):").lower()
+        if choice!="quit" and choice!="yes":
+            print("Invalid!")
+            continue
+        return choice
+    
+
+def get_user_choice():
+    while True:
+        choice = input("Enter your choice(rock, paper, scissor):")
+        choice = choice.lower()
+        if choice!="rock" and choice!="scissor" and choice!="paper":
+            print("Invalid choice!")
+            continue
+        return choice
+
 
 
 
 #PREDEFINED
 def main():
     #STUDENT CODE HERE - VARIABLES DECLARATION
+    round = 0
+    computer_choice = ""
+    user_choice = ""
+    winner = ""
+    total_computer_score = 0
+    total_player_score = 0
+    total_computer_xp = 0
+    total_player_xp = 0
     while True:
         #STUDENT CODE HERE
-        pass #Remove this before coding
+        game_header()
+        print("Previous round result\n============")
+        print("Previous computer choice:",computer_choice)
+        print("Previous user's choice:", user_choice)
+        print("Previous winner:", winner)
+        
+        print("\nScores:\n==========")
+        print("Total computer score:", total_computer_score)
+        print("Total computer XP:", total_computer_xp)
+        print("\nTotal player score:", total_player_score)
+        print("Total player xp:", total_player_xp)
+        
+        
+        
+        computer_choice = get_computer_choice()
+        user_choice = get_user_choice()
+        winner = determine_winner(user_choice, computer_choice)
+        xp = generate_xp(round)
+        
+        if winner == "Player Wins":
+            total_player_score +=1
+            total_player_xp+=xp
+        elif winner == "Computer wins!":
+            total_computer_score+=1
+            total_computer_xp +=1
+        
+        print(f"You:{user_choice} vs Computer:{computer_choice}")
+        print("Winner:", winner)
+        
+        round+=1
+        
+        play_again = quit()
+        if play_again == "quit":
+            print("Thank you for playing!!! Goodbye...")
+            break
+        
+        
 
 
 #PREDEFINED
